@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special 💖</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    color:#fff;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* 🎬 Background cinematic layer */
+.bg{
+    position:fixed;
+    inset:0;
+    background:url('Cutie.jpeg') no-repeat;
+    background-size:cover;
+    background-position:center 20%;
+    transform:scale(1);
+    animation:zoom 20s ease-in-out infinite alternate;
+    z-index:0;
+}
+
+@keyframes zoom{
+    from{transform:scale(1)}
+    to{transform:scale(1.1)}
+}
+
+/* Dark overlay */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:1;
+}
+
+/* 🌌 Stars */
+.star{
+    position:absolute;
+    width:2px;height:2px;
+    background:#fff;
+    animation:twinkle 2s infinite alternate;
+    z-index:1;
+}
+
+@keyframes twinkle{
+    from{opacity:.2}
+    to{opacity:1}
+}
+
+/* 💎 Glass Card */
+.container{
+    position:relative;
+    z-index:2;
+    top:10%;
+    margin:auto;
+    width:90%;
+    max-width:380px;
+    padding:25px;
+    border-radius:20px;
+    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,0.1);
+    box-shadow:0 0 25px rgba(255,255,255,0.2);
+    animation:fadeIn 2s ease;
+}
+
+h1{font-size:2em}
+
+/* Typing */
+#text{
+    margin-top:12px;
+    font-size:1.05em;
+    min-height:40px;
+}
+
+/* Button */
+button{
+    margin-top:18px;
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    background:#ff8fab;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+button:hover{transform:scale(1.1)}
+
+/* 🖼️ Slideshow */
+.slideshow{
+    margin-top:18px;
+    position:relative;
+    height:400px;
+}
+
+.slide{
+    width:100%;
+    height:400px;
+    object-fit:cover;
+    border-radius:15px;
+    position:absolute;
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+/* 💖 Hearts */
+.heart{
+    position:absolute;
+    color:pink;
+    animation:float 5s linear infinite;
+    z-index:1;
+}
+@keyframes float{
+    to{transform:translateY(-100vh);opacity:0}
+}
+
+/* 💥 Explosion hearts */
+.burst{
+    position:absolute;
+    font-size:20px;
+    animation:burst 1s ease forwards;
+}
+@keyframes burst{
+    to{
+        transform:translate(var(--x),var(--y)) scale(0.5);
+        opacity:0;
+    }
+}
+
+/* Final */
+#final{
+    display:none;
+    margin-top:15px;
+    font-size:1.1em;
+    animation:fadeIn 2s;
+}
+
+/* Fade */
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+/* 📱 Mobile */
+@media(max-width:600px){
+    .container{top:15%}
+    h1{font-size:1.6em}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+
+<div class="container" onclick="explode(event)">
+    <h1>🎉 Happy Birthday My Cutie 💖</h1>
+
+    <div id="text"></div>
+
+    <button onclick="showFinal()">Tap for Magic ✨</button>
+
+    <!-- Slideshow -->
+    <div class="slideshow">
+        <img src="Cutie1.jpeg" class="slide">
+        <img src="cutie2.jpeg" class="slide">
+        <img src="Cutie3.jpeg" class="slide">
+    </div>
+
+    <div id="final">
+        You are not just special… you are unforgettable 😊💫
+    </div>
+</div>
+
+<!-- 🎵 Music -->
+<audio id="music" loop>
+    <source src="music.mp3">
+</audio>
+
+<script>
+// Enable music on first click
+document.body.addEventListener("click",()=>{
+    document.getElementById("music").play();
+},{once:true});
+
+// Typing
+const msg="Aaj ka din sirf tumhare liye hai… aur thoda sa mere liye bhi 😊";
+let i=0;
+function type(){
+    if(i<msg.length){
+        document.getElementById("text").innerHTML+=msg.charAt(i);
+        i++;
+        setTimeout(type,40);
+    }
+}
+type();
+
+// Stars
+for(let i=0;i<80;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.top=Math.random()*100+"vh";
+    s.style.left=Math.random()*100+"vw";
+    document.body.appendChild(s);
+}
+
+// Hearts float
+function createHeart(){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(Math.random()*20+10)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+}
+setInterval(createHeart,400);
+
+// 💥 Explosion
+function explode(e){
+    for(let i=0;i<10;i++){
+        let b=document.createElement("div");
+        b.className="burst";
+        b.innerHTML="💖";
+        let x=(Math.random()-0.5)*200+"px";
+        let y=(Math.random()-0.5)*200+"px";
+        b.style.setProperty('--x',x);
+        b.style.setProperty('--y',y);
+        b.style.left=e.clientX+"px";
+        b.style.top=e.clientY+"px";
+        document.body.appendChild(b);
+        setTimeout(()=>b.remove(),1000);
+    }
+}
+
+// Smooth Slideshow
+let slideIndex=0;
+const slides=document.getElementsByClassName("slide");
+
+function showSlides(){
+    for(let i=0;i<slides.length;i++){
+        slides[i].style.opacity="0";
+    }
+
+    slideIndex++;
+    if(slideIndex>slides.length){slideIndex=1;}
+
+    slides[slideIndex-1].style.opacity="1";
+
+    setTimeout(showSlides,5000);
+}
+showSlides();
+
+// Final message
+function showFinal(){
+    document.getElementById("final").style.display="block";
+}
+</script>
+
+</body>
+</html>
