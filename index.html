@@ -68,6 +68,9 @@ body{
     background:rgba(255,255,255,0.1);
     box-shadow:0 0 25px rgba(255,255,255,0.2);
     animation:fadeIn 2s ease;
+
+    max-height:85vh;   /* ✅ FIX */
+    overflow-y:auto;   /* ✅ FIX */
 }
 
 h1{font-size:2em}
@@ -134,12 +137,25 @@ button:hover{transform:scale(1.1)}
     }
 }
 
-/* Final */
+/* ✅ FINAL TEXT FIX */
 #final{
     display:none;
     margin-top:15px;
     font-size:1.1em;
     animation:fadeIn 2s;
+
+    max-height:220px;   /* ✅ FIX */
+    overflow-y:auto;    /* ✅ FIX */
+    padding-right:6px;
+}
+
+/* Scrollbar */
+#final::-webkit-scrollbar{
+    width:5px;
+}
+#final::-webkit-scrollbar-thumb{
+    background:#ff8fab;
+    border-radius:10px;
 }
 
 /* Fade */
@@ -166,7 +182,7 @@ button:hover{transform:scale(1.1)}
 
     <div id="text"></div>
 
-    <button onclick="showFinal()">Tap for Magic ✨</button>
+    <button onclick="showFinal()">Message✨</button>
 
     <!-- Slideshow -->
     <div class="slideshow">
@@ -176,7 +192,13 @@ button:hover{transform:scale(1.1)}
     </div>
 
     <div id="final">
-        You are not just special… you are unforgettable 😊💫
+        <p>You are not just special… you are unforgettable 😊💫</p>
+        <p>Happy Birthday once again 🎉<br>
+        Waise toh aaj sab aapko wish kar rahe honge… or un sab me ek kuttwa mai bhi hu... 😄<br>
+        Sach bolu toh aaj ka din bohot special hai… kyunki Aaj aapka birthday hai (Meri Cutie) 🫣<br>
+        I hope aapki smile aaj aur bhi zyada shine kare, kyunki honestly woh already kaafi dangerous hai 😉
+        Enjoy your day… aur haan, aise hi Meri Cutie banki rehna ✨<br>
+        Thikkkkkkkk 😋 </p> 
     </div>
 </div>
 
@@ -192,7 +214,7 @@ document.body.addEventListener("click",()=>{
 },{once:true});
 
 // Typing
-const msg="Aaj ka din sirf tumhare liye hai… aur thoda sa mere liye bhi 😊";
+const msg="Aaj ka din sirf aapke liye hai… aur thoda sa mere liye bhi 😊";
 let i=0;
 function type(){
     if(i<msg.length){
